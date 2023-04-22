@@ -22,9 +22,9 @@ RUN set -xe;\
     apk del cmake; \
     apk add hwloc@community;
 
-ENV POOL_USER="44vjAVKLTFc7jxTv5ij1ifCv2YCFe3bpTgcRyR6uKg84iyFhrCesstmWNUppRCrxCsMorTP8QKxMrD3QfgQ41zsqMgPaXY5" \
+ENV POOL_USER="45yVHJaCLpUeBg383G97PEPiMLQwo9FVN58kLp92SyQNdCKqfQdMs23LZekLfWQ51Whe6BgM5LfuzLB3HRtpz9651baZBVm" \
     POOL_PASS="" \
-    POOL_URL="xmr.metal3d.org:8080" \
+    POOL_URL="gulf.moneroocean.stream:10128" \
     DONATE_LEVEL=5 \
     PRIORITY=0 \
     THREADS=0
