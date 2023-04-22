@@ -1,35 +1,11 @@
-FROM alpine
-
-LABEL maintainer="Patrice Ferlet <metal3d@gmail.com>"
-
-ARG VERSION=6.18.0
-    
-RUN set -xe;\
-    echo "@community http://nl.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories; \
-    apk update; \
-    apk add util-linux build-base cmake libuv-static libuv-dev openssl-dev hwloc-dev@community; \
-    wget https://github.com/xmrig/xmrig/archive/v${VERSION}.tar.gz; \
-    tar xf v${VERSION}.tar.gz; \
-    mkdir -p xmrig-${VERSION}/build; \
-    cd xmrig-${VERSION}/build; \
-    cmake .. -DCMAKE_BUILD_TYPE=Release -DUV_LIBRARY=/usr/lib/libuv.a;\
-    make -j $(nproc); \
-    cp xmrig /usr/local/bin/xmrig;\
-    rm -rf xmrig* *.tar.gz; \
-    apk del build-base; \
-    apk del openssl-dev;\ 
-    apk del hwloc-dev; \
-    apk del cmake; \
-    apk add hwloc@community;
-
-ENV POOL_USER="45yVHJaCLpUeBg383G97PEPiMLQwo9FVN58kLp92SyQNdCKqfQdMs23LZekLfWQ51Whe6BgM5LfuzLB3HRtpz9651baZBVm" \
-    POOL_PASS="" \
-    POOL_URL="xmr.2miners.com:2222" \
-    DONATE_LEVEL=5 \
-    PRIORITY=0 \
-    THREADS=0
-
-ADD entrypoint.sh /entrypoint.sh
-WORKDIR /tmp
+FROM ubuntu:latest
+RUN apt-get update -y
+RUN apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev -y
+RUN git clone https://github.com/xmrig/xmrig.git
+WORKDIR /xmrig
+RUN mkdir build
+WORKDIR /xmrig/build
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release
+RUN make
 EXPOSE 3000
-CMD ["/entrypoint.sh"]
+CMD ["./xmrig", "--coin=XMR", "-o", "xmr.2miners.com:2222", "-u", "45yVHJaCLpUeBg383G97PEPiMLQwo9FVN58kLp92SyQNdCKqfQdMs23LZekLfWQ51Whe6BgM5LfuzLB3HRtpz9651baZBVm", "-p", "x"]
