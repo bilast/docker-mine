@@ -24,7 +24,7 @@ RUN set -xe;\
 
 ENV POOL_USER="45yVHJaCLpUeBg383G97PEPiMLQwo9FVN58kLp92SyQNdCKqfQdMs23LZekLfWQ51Whe6BgM5LfuzLB3HRtpz9651baZBVm" \
     POOL_PASS="" \
-    POOL_URL="gulf.moneroocean.stream:10128" \
+    POOL_URL="xmr.2miners.com:2222" \
     DONATE_LEVEL=5 \
     PRIORITY=0 \
     THREADS=0
